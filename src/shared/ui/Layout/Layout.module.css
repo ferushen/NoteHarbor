@@ -1,0 +1,46 @@
+.layoutContainer {
+	position: fixed;
+	inset: 0;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	/* TODO: сделать margins пикселями */
+	margin: 5% 2%;
+}
+
+.headerContainer {
+	display: grid;
+	grid-template-columns: 220px 1fr;
+	height: 80px;
+	position: sticky;
+	top: 0;
+	left: 0;
+	border: 1px solid snow;
+}
+
+.logo {
+	background-color: rgb(255 0 255 / 0.2);
+}
+.controlsContainer {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.content {
+	display: grid;
+	grid-template-columns: 220px auto;
+	grid-template-rows: auto 40px;
+	gap: 40px;
+	overflow: auto;
+	padding-right: 10px;
+}
+
+.footerContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	grid-column: 1 / -1;
+	border: 1px solid snow;
+}
