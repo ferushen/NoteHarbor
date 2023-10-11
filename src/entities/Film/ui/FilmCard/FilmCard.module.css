@@ -1,0 +1,31 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	width: 600px;
+	padding: 14px;
+	border-radius: 22px;
+	background-color: rgb(125 255 255 / 0.2);
+	cursor: pointer;
+	transition: background 0.3s;
+}
+.card:hover {
+	background-color: rgba(170, 246, 246, 0.434);
+}
+.poster {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 4rem;
+	height: 240px;
+	background-color: rgb(255 125 255 / 0.2);
+}
+.title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	line-height: 16px;
+	text-wrap: balance;
+	height: 40px;
+	background-color: rgb(255 125 125 / 0.2);
+}
