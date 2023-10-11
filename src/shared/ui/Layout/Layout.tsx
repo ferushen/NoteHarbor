@@ -16,7 +16,7 @@ export function Layout(props: Props) {
     <>
       <div className={cls.layoutContainer}>
         <header className={cls.headerContainer}>
-          <div className={cls.logo}>NOTE HARBOR</div>
+          <div className={cls.logo}>SW SEARCH</div>
           <div className={cls.controlsContainer}>
             {searchSlot}
             {menuSlot}
