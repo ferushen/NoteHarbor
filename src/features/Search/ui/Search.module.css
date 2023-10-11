@@ -1,0 +1,19 @@
+.container {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	border: 1px solid snow;
+}
+
+.input {
+	width: 600px;
+	height: 28px;
+	margin-left: 40px;
+	color: rgb(225, 220, 159);
+	background-color: transparent;
+	border: none;
+	border-radius: 12px;
+	outline: none;
+	padding: 0 10px;
+	transition: box-shadow 0.2s;
+}

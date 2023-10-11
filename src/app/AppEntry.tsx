@@ -17,4 +17,3 @@ ReactDOM.createRoot(root).render(
     </ReduxProvider>
   </React.StrictMode>
 );
-
