@@ -1,0 +1,22 @@
+.container {
+	min-width: 120px;
+}
+
+.item {
+	transition: transform 1s;
+}
+
+.loading {
+	width: 10px;
+	margin-left: 10px;
+	animation: loader 0.5s infinite;
+}
+
+@keyframes loader {
+	from {
+		transform: rotateZ(90deg);
+	}
+	to {
+		transform: rotateZ(450deg);
+	}
+}
