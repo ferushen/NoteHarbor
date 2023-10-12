@@ -1,3 +1,5 @@
+import { MappedEntity } from '@/shared/types/common';
+
 export interface Film {
 	id: EpisodeNumbers;
 	episodeId: string;
@@ -11,7 +13,5 @@ export interface Film {
 	species: MappedEntity;
 	planets: MappedEntity;
 }
-
-export type MappedEntity = { [id: string]: string };
 
 export type EpisodeNumbers = 1 | 2 | 3 | 4 | 5 | 6;
