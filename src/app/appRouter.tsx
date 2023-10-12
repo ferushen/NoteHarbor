@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { FilmsPage } from "@/pages/Films";
 import { filmsLayout } from "./layouts/filmsLayout";
+import { FilmPage } from "@/pages/Film";
 
 export const appRouter = () =>
   createBrowserRouter([
@@ -11,6 +12,10 @@ export const appRouter = () =>
         {
           path: '/',
           element: <FilmsPage />
+        },
+        {
+          path: '/films/:id',
+          element: <FilmPage />
         }
       ]
     },

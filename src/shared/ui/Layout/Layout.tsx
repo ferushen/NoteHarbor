@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 import cls from './Layout.module.css';
 
@@ -16,7 +16,7 @@ export function Layout(props: Props) {
     <>
       <div className={cls.layoutContainer}>
         <header className={cls.headerContainer}>
-          <div className={cls.logo}>SW SEARCH</div>
+          <NavLink to={'/'} className={cls.logo}>SW SEARCH</NavLink>
           <div className={cls.controlsContainer}>
             {searchSlot}
             {menuSlot}
@@ -28,7 +28,7 @@ export function Layout(props: Props) {
           <main>
             <Outlet />
           </main>
-          <footer className={cls.footerContainer}>2023</footer>
+          <footer className={cls.footerContainer}>© 2023 Ferushen</footer>
         </div>
       </div>
     </>

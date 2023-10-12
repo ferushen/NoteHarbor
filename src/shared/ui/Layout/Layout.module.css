@@ -17,11 +17,13 @@
 	position: sticky;
 	top: 0;
 	left: 0;
-	border: 1px solid snow;
+	/* border: 1px solid snow; */
 }
 
 .logo {
-	background-color: rgb(255 0 255 / 0.2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .controlsContainer {
 	display: flex;
@@ -43,5 +45,5 @@
 	align-items: center;
 	justify-content: center;
 	grid-column: 1 / -1;
-	border: 1px solid snow;
+	/* border: 1px solid snow; */
 }

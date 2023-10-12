@@ -1,19 +1,14 @@
 import type { FilmFromApi } from '../api/types';
-import type { EpisodeNumbers, Film, MappedEntity } from '../model/types';
+import type { EpisodeNumbers, Film } from '../model/types';
+import { createMappedEntity } from '@/shared/lib/helpers';
 
 export function mapFilms(films: FilmFromApi[]): Film[] {
 	const sortedFilms = films.sort((a, b) => a.episode_id - b.episode_id);
 
 	const transformedFilms = sortedFilms.reduce<Film[]>((acc, film) => {
-		const mappedCharacters = film.characters.reduce<MappedEntity>((acc, item) => {
-			return { ...acc, [getIdFromUrl(item)]: item };
-		}, {});
-		const mappedSpecies = film.species.reduce<MappedEntity>((acc, item) => {
-			return { ...acc, [getIdFromUrl(item)]: item };
-		}, {});
-		const mappedPlanets = film.planets.reduce<MappedEntity>((acc, item) => {
-			return { ...acc, [getIdFromUrl(item)]: item };
-		}, {});
+		const mappedCharacters = createMappedEntity(film.characters);
+		const mappedSpecies = createMappedEntity(film.species);
+		const mappedPlanets = createMappedEntity(film.planets);
 
 		const year = film.release_date.split('-')[0];
 
@@ -35,11 +30,6 @@ export function mapFilms(films: FilmFromApi[]): Film[] {
 	}, []);
 
 	return transformedFilms;
-}
-
-function getIdFromUrl(url: string) {
-	const arr = url.split('/');
-	return arr[arr.length - 2];
 }
 
 function mapEpisodeToRoman(number: EpisodeNumbers) {

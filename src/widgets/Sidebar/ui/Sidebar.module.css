@@ -1,6 +1,10 @@
 .container {
-	border: 1px solid snow;
+	height: 100%;
 }
-.title {
-	background-color: rgb(255 0 0 / 0.2);
+.navigation {
+	position: sticky;
+	top: 30px;
+	display: flex;
+	flex-direction: column;
+	margin-left: 40px;
 }
