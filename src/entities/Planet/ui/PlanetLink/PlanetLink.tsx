@@ -10,6 +10,7 @@ export function PlanetLink({ id }: Props) {
 
   return (
     <CardLink
+      to={`/planets/${id}`}
       name={planet?.name}
       isLoading={isLoading}
       isError={isError}

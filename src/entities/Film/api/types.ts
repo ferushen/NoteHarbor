@@ -8,4 +8,9 @@ export interface FilmFromApi {
 	species: string[];
 	characters: string[];
 	planets: string[];
+	url: string;
+}
+
+export interface FilmsResponse {
+	results: FilmFromApi[];
 }

@@ -1,19 +1,61 @@
+@import url('/src/app/styles/breakpoints.css');
+
 .container {
 	display: flex;
 	flex-grow: 1;
 	align-items: center;
-	/* border: 1px solid snow; */
+	position: relative;
+
+	/* @media (--xs-viewport) {
+		grid-area: search;
+	} */
 }
 
 .input {
-	width: 600px;
+	width: 100%;
+	min-width: 300px;
 	height: 28px;
-	margin-left: 40px;
-	color: rgb(225, 220, 159);
+	margin: 0 auto;
+	padding: 0 10px;
+	font: var(--font-m);
+	color: var(--white-light);
 	background-color: transparent;
 	border: none;
 	border-radius: 12px;
 	outline: none;
-	padding: 0 10px;
 	transition: box-shadow 0.2s;
+}
+
+.result {
+	position: absolute;
+	top: 40px;
+	left: 50px;
+	min-width: 300px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	padding: 4px 8px;
+	border-radius: 8px;
+	background-color: rgb(65, 55, 82);
+	box-shadow: 8px 8px 12px 4px rgb(33 29 49);
+}
+
+.hidden {
+	display: none;
+}
+
+.resultItem {
+	display: grid;
+	grid-template-columns: 60px auto;
+}
+
+.linkInfo {
+	color: #7d7a7a;
+	font-style: italic;
+}
+
+.link {
+	padding: 0 8px;
+	border-radius: 4px;
+	width: 100%;
 }

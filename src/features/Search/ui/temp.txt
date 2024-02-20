@@ -1,0 +1,203 @@
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { useSearchFilmQuery } from '@/entities/Film';
+import { useSearchPersonQuery } from '@/entities/Person';
+import { useSearchPlanetQuery } from '@/entities/Planet';
+import { useSearchRaceQuery } from '@/entities/Species';
+import cls from './Search.module.css';
+import { Link, useLocation } from 'react-router-dom';
+import { Result } from '../model/types';
+import cn from 'classnames';
+
+const initDone = {
+  films: false,
+  persons: false,
+  planets: false,
+  races: false,
+};
+
+export function Search() {
+  console.log('----RENDER--SEARCH-----')
+  const [query, setQuery] = useState<string>('');
+  const [result, setResult] = useState<Result>([]);
+  const [done, setDone] = useState<{ [entity: string]: boolean }>(initDone);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  console.log('RESULT', result)
+  console.log('DONE', done)
+
+  const location = useLocation();
+
+  // console.log('@QUERY', query.toUpperCase());
+  // console.log('@RESULT', result);
+  // console.log('@DONE', done);
+
+  const { data: films, isFetching: isFilmFetching } = useSearchFilmQuery(
+    { search: query },
+    { skip: query.length <= 2 }
+  );
+  const {
+    data: persons,
+    isFetching: isPersonFetching,
+    isUninitialized,
+
+  } = useSearchPersonQuery(
+    { search: query },
+    { skip: query.length <= 2 }
+  );
+  const { data: planets, isFetching: isPlanetFetching } = useSearchPlanetQuery(
+    { search: query },
+    { skip: query.length <= 2 }
+  );
+  const { data: races, isFetching: isRaceFetching } = useSearchRaceQuery(
+    { search: query },
+    { skip: query.length <= 2 }
+  );
+
+  const isFetching =
+    isFilmFetching || isPersonFetching || isPlanetFetching || isRaceFetching;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const handleFocus = () => {
+    if (query.length > 2) {
+      setIsOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    console.log('>> EFFECT :: SET RESULTS AND DONE');
+    if (films && !done.films) {
+      console.log('>> EFFECT :: films', done['films'])
+      setResult((res) => [...res, ...films]);
+      setDone((done) => ({ ...done, films: true }));
+    }
+    if (persons && !done.persons) {
+      console.log('>> EFFECT :: persons', done['persons'])
+      setResult((res) => [...res, ...persons]);
+      setDone((done) => ({ ...done, persons: true }));
+    }
+    if (planets && !done.planets) {
+      console.log('>> EFFECT :: planets', done['planets'])
+      setResult((res) => [...res, ...planets]);
+      setDone((done) => ({ ...done, planets: true }));
+    }
+    if (races && !done.races) {
+      console.log('>> EFFECT :: races', done['races'])
+      setResult((res) => [...res, ...races]);
+      setDone((done) => ({ ...done, races: true }));
+    }
+  }, [
+    done.films,
+    done.persons,
+    done.planets,
+    done.races,
+    films,
+    persons,
+    planets,
+    query,
+    races,
+  ]);
+
+  useEffect(() => {
+    setIsOpen(true);
+    return () => {
+      console.log('>> UNMOUNT EFFECT')
+      if (query.length > 1) {
+        console.log('>> UNMOUNT EFFECT WITH CONDITION')
+        setDone((prev) => {
+          console.log('>> UNMOUNT EFFECT :: RESET DONS')
+
+          for (const key in prev) {
+            prev[key] = false;
+          }
+          return prev;
+        });
+
+        setResult((prev) => {
+          console.log('>> UNMOUNT EFFECT :: RESET RESULTS')
+          prev.splice(0, prev.length);
+          return prev;
+        });
+      }
+    };
+  }, [query]);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      console.log(e.target);
+      setIsOpen(false);
+    };
+
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    console.log('>> EFFECT (LOCATION) :: ALL RESET')
+    setQuery('');
+    setResult([]);
+    setDone({});
+  }, [location]);
+
+  return (
+    <div className={cls.container}>
+      <input
+        className={cls.input}
+        type='text'
+        placeholder='Поиск по вселенной Star Wars'
+        value={query}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onClick={(e) => e.stopPropagation()}
+      />
+      {query.length > 2 && (
+        <div
+          className={cn(cls.result, { [cls.hidden]: !isOpen })}
+          // key='result'
+          onClick={(e) => e.stopPropagation()}>
+          {isUninitialized
+            ? 'Пока не ищем'
+            : isFetching
+              ? 'Поиск...'
+              : result.length !== 0
+                ? result.map((item) => (
+                  <div
+                    className={cls.resultItem}
+                    key={item.name}>
+                    <span className={cls.linkInfo}>{item.category}</span>
+                    <Link
+                      className={cls.link}
+                      to={`/${item.category}/${item.id}`}>
+                      {item.name}
+                    </Link>
+                  </div>
+                ))
+                : 'Ничего не найдено'}
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
+
+Type '({ search }: { search?: string | undefined; }, _queryApi: BaseQueryApi, _extraOptions: {}, fetchWithBQ: (arg: string | FetchArgs) => MaybePromise<QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>>) => Promise<...>' 
+is not assignable to type 
+    '(arg: { search?: string | undefined; }, api: BaseQueryApi, extraOptions: {}, baseQuery: (arg: string | FetchArgs) => MaybePromise<QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>>) => MaybePromise<...>'.
+  Type 'Promise<{ error?: undefined; data?: undefined; } | { error: { error: string; status: "CUSTOM_ERROR"; }; data?: undefined; } | { data: FilmForSearch[]; error?: undefined; } | { error: string; data?: undefined; }>' is not assignable to type 'MaybePromise<QueryReturnValue<FilmForSearch[], FetchBaseQueryError>>'.
+    Type 'Promise<{ error?: undefined; data?: undefined; } | { error: { error: string; status: "CUSTOM_ERROR"; }; data?: undefined; } | { data: FilmForSearch[]; error?: undefined; } | { error: string; data?: undefined; }>' is not assignable to type 'PromiseLike<QueryReturnValue<FilmForSearch[], FetchBaseQueryError>>'.
+      Types of property 'then' are incompatible.
+        Type '<TResult1 = { error?: undefined; data?: undefined; } | { error: { error: string; status: "CUSTOM_ERROR"; }; data?: undefined; } | { data: FilmForSearch[]; error?: undefined; } | { error: string; data?: undefined; }, TResult2 = never>(onfulfilled?: ((value: { ...; } | ... 2 more ... | { ...; }) => TResult1 | PromiseL...' is not assignable to type '<TResult1 = QueryReturnValue<FilmForSearch[], FetchBaseQueryError>, TResult2 = never>(onfulfilled?: ((value: QueryReturnValue<FilmForSearch[], FetchBaseQueryError>) => TResult1 | PromiseLike<...>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<...>) | ... 1 more ... | undefined) => Promise...'.
+          Types of parameters 'onfulfilled' and 'onfulfilled' are incompatible.
+            Types of parameters 'value' and 'value' are incompatible.
+              Type '{ error?: undefined; data?: undefined; } | { error: { error: string; status: "CUSTOM_ERROR"; }; data?: undefined; } | { data: FilmForSearch[]; error?: undefined; } | { error: string; data?: undefined; }' is not assignable to type 'QueryReturnValue<FilmForSearch[], FetchBaseQueryError>'.
+                Type '{ error?: undefined; data?: undefined; }' is not assignable to type 'QueryReturnValue<FilmForSearch[], FetchBaseQueryError>'.
+                  Type '{ error?: undefined; data?: undefined; }' is not assignable to type '{ error?: undefined; data: FilmForSearch[]; meta?: unknown; }'.
+                    Types of property 'data' are incompatible.
+                      Type 'undefined' is not assignable to type 'FilmForSearch[]'.ts(2322) 

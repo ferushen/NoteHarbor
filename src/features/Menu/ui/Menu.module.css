@@ -1,7 +1,12 @@
+@import url('/src/app/styles/breakpoints.css');
+
 .container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100px;
-	/* border: 1px solid snow; */
+
+	/* @media (--xs-viewport) {
+		grid-area: menu;
+	} */
 }

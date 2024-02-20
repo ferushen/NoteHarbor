@@ -1,10 +1,58 @@
-.container {
-	height: 100%;
-}
+@import url('/src/app/styles/breakpoints.css');
+
 .navigation {
 	position: sticky;
-	top: 30px;
+	top: 0px;
 	display: flex;
 	flex-direction: column;
-	margin-left: 40px;
+	gap: 40px;
+	width: 100%;
+	padding: 15px 15px 15px 40px;
+
+	@media (--s-viewport) {
+	}
+}
+
+.btnContainer {
+	position: relative;
+}
+
+.btn {
+	position: relative;
+	width: 30px;
+	height: 30px;
+	margin: 15px;
+	outline: none;
+	border: none;
+	border-radius: 8px;
+	background-color: var(--white-trans);
+}
+
+.navigationMobile {
+	position: absolute;
+	bottom: -20px;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.link {
+	min-width: 90px;
+	text-align: center;
+	font: var(--font-m);
+	line-height: 60px;
+	border-radius: 16px;
+	background-color: var(--white-trans);
+
+	@media (--m-viewport) {
+		line-height: 40px;
+	}
+}
+
+.active {
+	color: rgb(49, 9, 9);
+	background-color: var(--white-light);
+	box-shadow: 0px 0px 12px 2px var(--white-light);
 }

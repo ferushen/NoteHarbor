@@ -11,7 +11,7 @@ export function FilmCard({ film }: FilmCardProps) {
   const { title, episodeId, id } = film;
 
   return (
-    <Link to={'films/' + id} className={cls.card}>
+    <Link to={`/films/${id}`} className={cls.card}>
       <div className={cls.poster}>{episodeId}</div>
       <div className={cls.title}>{title}</div>
     </Link>

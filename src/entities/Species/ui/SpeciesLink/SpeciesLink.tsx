@@ -1,4 +1,4 @@
-import { useOneSpeciesQuery } from "../../api/speciesApi";
+import { useRaceQuery } from "../../api/speciesApi";
 import { CardLink } from "@/shared/ui";
 
 interface Props {
@@ -6,10 +6,11 @@ interface Props {
 }
 
 export function SpeciesLink({ id }: Props) {
-  const { data: race, isLoading, isError } = useOneSpeciesQuery({ id });
+  const { data: race, isLoading, isError } = useRaceQuery({ id });
 
   return (
     <CardLink
+      to={`/species/${race?.id}`}
       name={race?.name}
       isLoading={isLoading}
       isError={isError}

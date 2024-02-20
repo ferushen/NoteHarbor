@@ -3,10 +3,14 @@
 }
 
 .item {
+	width: max-content;
+	padding: 0 4px;
+	border-radius: 6px;
 	transition: transform 1s;
 }
 
 .loading {
+	pointer-events: none;
 	width: 10px;
 	margin-left: 10px;
 	animation: loader 0.5s infinite;

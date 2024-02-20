@@ -1,6 +1,6 @@
 import type { FilmFromApi } from '../api/types';
 import type { EpisodeNumbers, Film } from '../model/types';
-import { createMappedEntity } from '@/shared/lib/helpers';
+import { createMappedEntity, getIdFromUrl } from '@/shared/lib/helpers';
 
 export function mapFilms(films: FilmFromApi[]): Film[] {
 	const sortedFilms = films.sort((a, b) => a.episode_id - b.episode_id);
@@ -13,7 +13,7 @@ export function mapFilms(films: FilmFromApi[]): Film[] {
 		const year = film.release_date.split('-')[0];
 
 		const mappedFilm = {
-			id: film.episode_id,
+			id: getIdFromUrl(film.url),
 			episodeId: mapEpisodeToRoman(film.episode_id),
 			title: film.title,
 			releaseDate: {

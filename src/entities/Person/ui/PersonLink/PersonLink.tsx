@@ -10,6 +10,7 @@ export function PersonLink({ id }: Props) {
 
   return (
     <CardLink
+      to={`/persons/${id}`}
       name={person?.name}
       isLoading={isLoading}
       isError={isError}

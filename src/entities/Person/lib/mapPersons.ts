@@ -10,16 +10,18 @@ export function mapPersons(persons: PersonFromApi[]): Person[] {
 		const mappedPerson = {
 			id: getIdFromUrl(person.url),
 			name: person.name,
-			birthYear: person.birth_year,
-			eyeColor: person.eye_color,
-			gender: person.gender,
-			hairColor: person.hair_color,
-			height: person.height,
-			mass: person.mass,
-			skinColor: person.skin_color,
-			homeWorld: person.homeworld,
+			info: {
+				birthYear: person.birth_year,
+				eyeColor: person.eye_color,
+				gender: person.gender,
+				hairColor: person.hair_color,
+				height: person.height,
+				mass: person.mass,
+				skinColor: person.skin_color,
+				homeWorld: person.homeworld,
+				species,
+			},
 			films,
-			species,
 		};
 		return [...acc, mappedPerson];
 	}, []);

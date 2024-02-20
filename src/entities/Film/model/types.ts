@@ -1,7 +1,7 @@
 import { MappedEntity } from '@/shared/types/common';
 
 export interface Film {
-	id: EpisodeNumbers;
+	id: string;
 	episodeId: string;
 	title: string;
 	openingCrawl: string;
@@ -13,5 +13,7 @@ export interface Film {
 	species: MappedEntity;
 	planets: MappedEntity;
 }
+
+export type FilmForSearch = { id: string; name: string; category: string };
 
 export type EpisodeNumbers = 1 | 2 | 3 | 4 | 5 | 6;

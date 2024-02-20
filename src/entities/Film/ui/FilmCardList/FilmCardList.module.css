@@ -1,8 +1,17 @@
+@import url('/src/app/styles/breakpoints.css');
+
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  width: 100%;
-  height: 100%;
-  border: 1px solid snow;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+
+	@media screen and (--l-viewport) {
+		flex-direction: column;
+		justify-content: normal;
+		padding: 40px 60px;
+	}
 }

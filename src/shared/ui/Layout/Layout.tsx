@@ -1,35 +1,51 @@
 import { ReactNode } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import cn from 'classnames';
+import { useMobile } from '@/shared/lib/hooks/useMobile';
 
 import cls from './Layout.module.css';
 
 interface Props {
-  sidebarSlot?: ReactNode;
-  searchSlot?: ReactNode;
-  menuSlot?: ReactNode;
+  headerLeftSlot?: ReactNode;
+  headerCenterSlot?: ReactNode;
+  headerRightSlot?: ReactNode;
+  headerBottomSlot?: ReactNode;
+  contentLeftSlot?: ReactNode;
 }
 
 export function Layout(props: Props) {
-  const { menuSlot, sidebarSlot, searchSlot } = props;
+  const {
+    headerLeftSlot,
+    headerCenterSlot,
+    headerRightSlot,
+    headerBottomSlot,
+    contentLeftSlot
+  } = props;
+
+  const isMobile = useMobile();
 
   return (
     <>
-      <div className={cls.layoutContainer}>
-        <header className={cls.headerContainer}>
-          <NavLink to={'/'} className={cls.logo}>SW SEARCH</NavLink>
-          <div className={cls.controlsContainer}>
-            {searchSlot}
-            {menuSlot}
+      <div className={cn(cls.layout, isMobile ? cls.layoutMobile : cls.layoutDesktop)}>
+        <header className={cls.header}>
+          <div className={cls.headerTop}>
+            {headerLeftSlot}
+            {headerCenterSlot}
+            {headerRightSlot}
+          </div>
+          <div className={cls.headerBottom}>
+            {headerBottomSlot}
           </div>
         </header>
 
-        <div className={cls.content}>
-          {sidebarSlot ? sidebarSlot : <div></div>}
-          <main>
+        <div className={isMobile ? cls.contentMobile : cls.contentDesktop}>
+          <aside className={isMobile ? '' : cls.sidebar}>{contentLeftSlot}</aside>
+          <main className={cls.main}>
             <Outlet />
           </main>
-          <footer className={cls.footerContainer}>© 2023 Ferushen</footer>
         </div>
+
+        <footer className={cls.footer}>© {new Date().getFullYear()} Ferushen</footer>
       </div>
     </>
   )

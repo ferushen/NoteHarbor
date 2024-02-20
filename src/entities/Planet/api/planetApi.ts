@@ -1,8 +1,9 @@
 import { baseApi } from '@/shared/api/baseApi';
-import type { Planet } from '../model/types';
+import type { Planet, PlanetForSearch } from '../model/types';
 import type { PlanetFromApi } from './types';
 import { mapPlanets } from '../lib/mapPlanets';
 import { mapPlanet } from '../lib/mapPlanet';
+import { mapSearchPlanet } from '../lib/mapSearchPlanet';
 
 export const planetApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -19,7 +20,14 @@ export const planetApi = baseApi.injectEndpoints({
 			}),
 			transformResponse: (response: PlanetFromApi) => mapPlanet(response),
 		}),
+		searchPlanet: build.query<PlanetForSearch[], { search?: string }>({
+			query: ({ search }) => ({
+				url: `/planets/${search ? `?search=${search}` : ''}`,
+			}),
+			transformResponse: (response: { results: PlanetFromApi[] }) =>
+				mapSearchPlanet(response.results),
+		}),
 	}),
 });
 
-export const { usePlanetQuery, usePlanetsQuery } = planetApi;
+export const { usePlanetQuery, usePlanetsQuery, useSearchPlanetQuery } = planetApi;

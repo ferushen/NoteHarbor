@@ -1,8 +1,11 @@
 import { baseApi } from '@/shared/api/baseApi';
-import type { Person } from '../model/types';
+
+import type { Person, PersonForSearch } from '../model/types';
 import type { PersonFromApi } from './types';
+
 import { mapPersons } from '../lib/mapPersons';
 import { mapPerson } from '../lib/mapPerson';
+import { mapSearchPerson } from '../lib/mapSearchPerson';
 
 export const personApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -19,7 +22,14 @@ export const personApi = baseApi.injectEndpoints({
 			}),
 			transformResponse: (response: PersonFromApi) => mapPerson(response),
 		}),
+		searchPerson: build.query<PersonForSearch[], { search?: string }>({
+			query: ({ search }) => ({
+				url: `/people/${search ? `?search=${search}` : ''}`,
+			}),
+			transformResponse: (response: { results: PersonFromApi[] }) =>
+				mapSearchPerson(response.results),
+		}),
 	}),
 });
 
-export const { usePersonQuery, usePersonsQuery } = personApi;
+export const { usePersonQuery, usePersonsQuery, useSearchPersonQuery } = personApi;

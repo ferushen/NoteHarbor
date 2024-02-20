@@ -1,0 +1,21 @@
+@import url('/src/app/styles/breakpoints.css');
+
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: var(--font-size-l);
+	transition: letter-spacing 0.3s;
+
+	/* @media (--xs-viewport) {
+		grid-area: logo;
+	} */
+}
+.logo:hover {
+	letter-spacing: 3px;
+	animation: none;
+
+	@media (--m-viewport) {
+		letter-spacing: 1px;
+	}
+}

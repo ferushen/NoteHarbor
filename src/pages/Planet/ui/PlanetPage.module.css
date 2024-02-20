@@ -1,0 +1,31 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.title {
+	margin-bottom: 40px;
+}
+
+.table {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: max-content;
+}
+
+.info {
+	display: grid;
+	grid-template-columns: 180px max-content 200px;
+	column-gap: 20px;
+}
+
+.items {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 20px;
+	row-gap: 12px;
+	max-width: 930px;
+}
